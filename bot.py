@@ -2,8 +2,8 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.types import WebAppInfo
 from aiogram.utils import executor
 
-TOKEN = "ВАШ_ТОКЕН_БОТА"
-WEBAPP_URL = "https://dogcat-webapp.vercel.app/"
+TOKEN = "7867506538:AAHkUYTPhynM9_0mjqgYf1fLf2nPBqC9aAQ"
+WEBAPP_URL = "https://strevol.github.io/dogcat-webapp/"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
