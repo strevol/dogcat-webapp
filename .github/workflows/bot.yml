@@ -1,0 +1,29 @@
+name: Run Bot
+
+on:
+  push:
+    branches:
+      - main  # или master, в зависимости от ветки
+  workflow_dispatch: # Дает возможность вручную запускать workflow
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install aiogram
+
+      - name: Run bot
+        run: |
+          python bot.py
