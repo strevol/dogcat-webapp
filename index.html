@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DogCat Shop</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Каталог DogCat</h1>
+    <div id="products"></div>
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand(); // Расширяем на весь экран
+        
+        async function loadProducts() {
+            let response = await fetch('https://dogcat59.ru/index.php?route=api/product/getProducts');
+            let products = await response.json();
+            let container = document.getElementById('products');
+
+            products.forEach(product => {
+                let div = document.createElement('div');
+                div.className = 'product';
+                div.innerHTML = `<h3>${product.name}</h3><p>${product.price} руб.</p>
+                <button onclick="addToCart(${product.product_id})">Добавить в корзину</button>`;
+                container.appendChild(div);
+            });
+        }
+
+        async function addToCart(productId) {
+            let response = await fetch(`https://dogcat59.ru/index.php?route=api/cart/add&product_id=${productId}`);
+            let result = await response.json();
+            alert(result.success ? 'Товар добавлен' : 'Ошибка');
+        }
+
+        loadProducts();
+    </script>
+</body>
+</html>
